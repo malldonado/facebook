@@ -1,31 +1,26 @@
-//imports
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const { readdirSync } = require('fs');
-const app = express();
-const dotenv = require('dotenv');
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const { readdirSync } = require("fs");
+const dotenv = require("dotenv");
 dotenv.config();
 
-//middlewares
-app.use(cors());
+const app = express();
 app.use(express.json());
+app.use(cors());
 
 //routes
-readdirSync('./routes').map((r) => app.use('/', require('./routes/' + r)));
+readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r)));
 
 //database
-mongoose.connect(process.env.DATABASE_URL, {
+mongoose
+  .connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('database connected successfully');
-}).catch((err) => {
-    console.log('error connecting to mongodb', err);
-});
+  })
+  .then(() => console.log("database connected successfully"))
+  .catch((err) => console.log("error connecting to mongodb", err));
 
-//running server
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, ()=> {
-    console.log('Server is running on port 8000');
+app.listen(PORT, () => {
+  console.log(`server is running on port ${PORT}..`);
 });

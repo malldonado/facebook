@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+
 const { ObjectId } = mongoose.Schema;
+
 const userSchema = mongoose.Schema(
   {
     first_name: {
@@ -21,6 +23,7 @@ const userSchema = mongoose.Schema(
       text: true,
       unique: true,
     },
+
     email: {
       type: String,
       required: [true, "email is required"],
@@ -121,7 +124,7 @@ const userSchema = mongoose.Schema(
         type: String,
       },
     },
-    savePosts: [
+    savedPosts: [
       {
         post: {
           type: ObjectId,
@@ -135,7 +138,7 @@ const userSchema = mongoose.Schema(
     ],
   },
   {
-    timestamp: true, //timestamp every time something is saved
+    timestamps: true,
   }
 );
 
